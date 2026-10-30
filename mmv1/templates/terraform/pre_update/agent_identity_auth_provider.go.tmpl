@@ -1,0 +1,120 @@
+if !d.HasChange("auth_provider_type_params") {
+	delete(obj, "authProviderTypeParams")
+} else {
+	newUpdateMask := []string{}
+	for _, mask := range updateMask {
+		if mask == "authProviderTypeParams" {
+			continue
+		}
+		newUpdateMask = append(newUpdateMask, mask)
+	}
+
+	if d.HasChange("auth_provider_type_params.0.api_key") {
+		if d.HasChange("auth_provider_type_params.0.api_key.0.api_key") ||
+			d.HasChange("auth_provider_type_params.0.api_key.0.api_key_wo") ||
+			d.HasChange("auth_provider_type_params.0.api_key.0.api_key_wo_version") ||
+			d.Get("auth_provider_type_params.0.api_key.0.api_key").(string) != "" {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.apiKey.apiKey")
+		}
+	}
+
+	if d.HasChange("auth_provider_type_params.0.two_legged_oauth") {
+		if d.HasChange("auth_provider_type_params.0.two_legged_oauth.0.client_id") {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.twoLeggedOauth.clientId")
+		}
+		if d.HasChange("auth_provider_type_params.0.two_legged_oauth.0.client_secret") ||
+			d.HasChange("auth_provider_type_params.0.two_legged_oauth.0.client_secret_wo") ||
+			d.HasChange("auth_provider_type_params.0.two_legged_oauth.0.client_secret_wo_version") ||
+			d.Get("auth_provider_type_params.0.two_legged_oauth.0.client_secret").(string) != "" {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.twoLeggedOauth.clientSecret")
+		}
+		if d.HasChange("auth_provider_type_params.0.two_legged_oauth.0.token_url") {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.twoLeggedOauth.tokenUrl")
+		}
+	}
+
+	if d.HasChange("auth_provider_type_params.0.three_legged_oauth") {
+		if d.HasChange("auth_provider_type_params.0.three_legged_oauth.0.authorization_url") {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.threeLeggedOauth.authorizationUrl")
+		}
+		if d.HasChange("auth_provider_type_params.0.three_legged_oauth.0.client_id") {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.threeLeggedOauth.clientId")
+		}
+		if d.HasChange("auth_provider_type_params.0.three_legged_oauth.0.client_secret") ||
+			d.HasChange("auth_provider_type_params.0.three_legged_oauth.0.client_secret_wo") ||
+			d.HasChange("auth_provider_type_params.0.three_legged_oauth.0.client_secret_wo_version") ||
+			d.Get("auth_provider_type_params.0.three_legged_oauth.0.client_secret").(string) != "" {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.threeLeggedOauth.clientSecret")
+		}
+		if d.HasChange("auth_provider_type_params.0.three_legged_oauth.0.default_continue_uri") {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.threeLeggedOauth.defaultContinueUri")
+		}
+		if d.HasChange("auth_provider_type_params.0.three_legged_oauth.0.enable_pkce") {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.threeLeggedOauth.enablePkce")
+		}
+		if d.HasChange("auth_provider_type_params.0.three_legged_oauth.0.token_url") {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.threeLeggedOauth.tokenUrl")
+		}
+	}
+
+	if d.HasChange("auth_provider_type_params.0.connector_reference_auth_provider") {
+		if d.HasChange("auth_provider_type_params.0.connector_reference_auth_provider.0.connector") {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.connectorReferenceAuthProvider.connector")
+		}
+		if d.HasChange("auth_provider_type_params.0.connector_reference_auth_provider.0.authorization_details") {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.connectorReferenceAuthProvider.authorizationDetails")
+		}
+	}
+
+	if d.HasChange("auth_provider_type_params.0.xaa_auth_provider") {
+		if d.HasChange("auth_provider_type_params.0.xaa_auth_provider.0.google_account") &&
+			len(d.Get("auth_provider_type_params.0.xaa_auth_provider.0.google_account").([]interface{})) > 0 {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.xaaAuthProvider.googleAccount")
+		} else if d.HasChange("auth_provider_type_params.0.xaa_auth_provider.0.workforce_identity_federation") &&
+			len(d.Get("auth_provider_type_params.0.xaa_auth_provider.0.workforce_identity_federation").([]interface{})) > 0 {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.xaaAuthProvider.workforceIdentityFederation")
+		} else if d.HasChange("auth_provider_type_params.0.xaa_auth_provider.0.custom_issuer") &&
+			len(d.Get("auth_provider_type_params.0.xaa_auth_provider.0.custom_issuer").([]interface{})) > 0 {
+			newUpdateMask = append(newUpdateMask,
+				"authProviderTypeParams.xaaAuthProvider.customIssuer.tokenUrl",
+				"authProviderTypeParams.xaaAuthProvider.customIssuer.issuer",
+			)
+		}
+
+		if d.HasChange("auth_provider_type_params.0.xaa_auth_provider.0.id_jag_input") &&
+			len(d.Get("auth_provider_type_params.0.xaa_auth_provider.0.id_jag_input").([]interface{})) > 0 {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.xaaAuthProvider.idJagInput")
+		} else if d.HasChange("auth_provider_type_params.0.xaa_auth_provider.0.id_token_input") &&
+			len(d.Get("auth_provider_type_params.0.xaa_auth_provider.0.id_token_input").([]interface{})) > 0 {
+			if len(d.Get("auth_provider_type_params.0.xaa_auth_provider.0.id_token_input.0.agent_identity_pool").([]interface{})) > 0 {
+				newUpdateMask = append(newUpdateMask, "authProviderTypeParams.xaaAuthProvider.idTokenInput.agentIdentityPool")
+			} else if d.Get("auth_provider_type_params.0.xaa_auth_provider.0.id_token_input.0.id_jag_auth_provider").(string) != "" {
+				newUpdateMask = append(newUpdateMask, "authProviderTypeParams.xaaAuthProvider.idTokenInput.idJagAuthProvider")
+			}
+			if d.HasChange("auth_provider_type_params.0.xaa_auth_provider.0.id_token_input.0.id_jag_additional_claims") {
+				newUpdateMask = append(newUpdateMask, "authProviderTypeParams.xaaAuthProvider.idTokenInput.idJagAdditionalClaims")
+			}
+		}
+
+		if d.HasChange("auth_provider_type_params.0.xaa_auth_provider.0.client_secret_auth") &&
+			len(d.Get("auth_provider_type_params.0.xaa_auth_provider.0.client_secret_auth").([]interface{})) > 0 {
+			newUpdateMask = append(newUpdateMask,
+				"authProviderTypeParams.xaaAuthProvider.clientSecretAuth.clientId",
+				"authProviderTypeParams.xaaAuthProvider.clientSecretAuth.clientSecret",
+			)
+		} else if d.HasChange("auth_provider_type_params.0.xaa_auth_provider.0.client_assertion_jwt_auth") &&
+			len(d.Get("auth_provider_type_params.0.xaa_auth_provider.0.client_assertion_jwt_auth").([]interface{})) > 0 {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.xaaAuthProvider.clientAssertionJwtAuth.clientId")
+		}
+
+		if d.HasChange("auth_provider_type_params.0.xaa_auth_provider.0.additional_parameters") {
+			newUpdateMask = append(newUpdateMask, "authProviderTypeParams.xaaAuthProvider.additionalParameters")
+		}
+	}
+
+	updateMask = newUpdateMask
+	url, err = transport_tpg.AddQueryParams(url, map[string]string{"updateMask": strings.Join(updateMask, ",")})
+	if err != nil {
+		return err
+	}
+}

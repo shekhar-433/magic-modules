@@ -580,6 +580,9 @@ func testAccAgentIdentityAuthProvider_xaaAuthProviderStep3(context map[string]in
         id_token_input {
           id_jag_auth_provider = "projects/my-project-name/locations/us-central1/authProviders/test-id-jag-provider"
         }
+        client_assertion_jwt_auth {
+          client_id = "test-xaa-jwt-client-id-updated"
+        }
       }
     }
   }

@@ -25,6 +25,7 @@ custom_diff:
   - agentIdentityAuthProviderCustomizeDiff
 custom_code:
   constants: "templates/terraform/constants/agent_identity_auth_provider.go.tmpl"
+  pre_update: "templates/terraform/pre_update/agent_identity_auth_provider.go.tmpl"
   post_read: "templates/terraform/post_read/agent_identity_auth_provider.go.tmpl"
   decoder: "templates/terraform/decoders/agent_identity_auth_provider.go.tmpl"
   post_create: "templates/terraform/post_create/sleep.go.tmpl"
@@ -158,6 +159,7 @@ properties:
             description: |-
               Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to prevent
               authorization code interception attacks.
+            send_empty_value: true
           - name: redirectUrl
             type: String
             description: |-
